@@ -13,7 +13,6 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         final Database database = Database.getInstance(getApplicationContext());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, MainFragment.newInstance())
-                .addToBackStack(null)
                 .commit();
 
     }

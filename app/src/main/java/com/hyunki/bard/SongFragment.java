@@ -6,6 +6,7 @@ import android.speech.tts.TextToSpeech;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class SongFragment extends Fragment {
+    ViewModel viewModel;
     TextView displayNotes;
     TextView songTitle;
     Button playButton;
@@ -32,6 +34,7 @@ public class SongFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
     }
 
     @Nullable

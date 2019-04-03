@@ -19,12 +19,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ComposeFragment extends Fragment implements View.OnClickListener {
     FragmentInteractionListener listener;
+    ViewModel viewModel;
     Song song;
     @BindView(R.id.song_title_edit_text)
     EditText songTitle;
@@ -56,6 +58,8 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        database = Database.getInstance(getActivity());
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
     }
 
     @Override
@@ -72,16 +76,13 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        database = Database.getInstance(getActivity());
-
-        View view = inflater.inflate(R.layout.fragment_compose, container, false);
-        ButterKnife.bind(this, view);
-        return view;
+        return inflater.inflate(R.layout.fragment_compose, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
         song = new Song();
         ArrayAdapter<CharSequence> adapter =
                 ArrayAdapter.createFromResource(
