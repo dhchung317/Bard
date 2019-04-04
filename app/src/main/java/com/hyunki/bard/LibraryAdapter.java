@@ -45,7 +45,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
         return songList.size();
     }
 
-    public void setUserList(List<Song> songList) {
+    public void setSongList(List<Song> songList) {
         this.songList = songList;
         notifyDataSetChanged();
     }

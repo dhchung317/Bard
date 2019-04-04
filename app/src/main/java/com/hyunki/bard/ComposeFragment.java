@@ -58,7 +58,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        database = Database.getInstance(getActivity());
+//        database = Database.getInstance(getActivity());
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
     }
 
@@ -137,7 +137,8 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getActivity(), "enter a title!", Toast.LENGTH_SHORT).show();
         } else {
             song.setSongTitle(songTitle.getText().toString());
-            database.addSong(song);
+//            database.addSong(song);
+            viewModel.addSong(song);
             Toast.makeText(getActivity(), "Song Added!", Toast.LENGTH_SHORT).show();
         }
     }
