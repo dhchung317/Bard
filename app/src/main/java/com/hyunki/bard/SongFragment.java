@@ -20,7 +20,7 @@ public class SongFragment extends Fragment {
     TextView songTitle;
     Button playButton;
     SongPlayer player;
-    Database database = Database.getInstance(getActivity());
+//    Database database = Database.getInstance(getActivity());
 
 
     public static SongFragment newInstance(Song song) {
@@ -75,7 +75,7 @@ public class SongFragment extends Fragment {
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                player.playSong(database.getSong(song.songTitle));
+                player.playSong(song);
             }
         });
 

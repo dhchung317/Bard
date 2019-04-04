@@ -5,12 +5,15 @@ import android.os.Bundle;
 
 public class MainActivity extends AppCompatActivity implements FragmentInteractionListener {
 
+    ViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Database database = Database.getInstance(getApplicationContext());
+        viewModel = new ViewModel(getApplication());
+//        final Database database = Database.getInstance(getApplicationContext());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, MainFragment.newInstance())
                 .commit();

@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 public class Database extends SQLiteOpenHelper {
 
@@ -16,14 +18,14 @@ public class Database extends SQLiteOpenHelper {
     private static final String TABLE_CHILD = "Notes";
     private static final String DATABASE_NAME = "songs.db";
     private static final int SCHEMA_VERSION = 1;
-    private static Database databaseInstance;
-
-    public static synchronized Database getInstance(Context context) {
-        if (databaseInstance == null) {
-            databaseInstance = new Database(context);
-        }
-        return databaseInstance;
-    }
+//    private static Database databaseInstance;
+//
+//    public static synchronized Database getInstance(Context context) {
+//        if (databaseInstance == null) {
+//            databaseInstance = new Database(context);
+//        }
+//        return databaseInstance;
+//    }
 
     public Database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, SCHEMA_VERSION);
@@ -91,7 +93,7 @@ public class Database extends SQLiteOpenHelper {
 
     }
 
-    public List<Song> getAllSongs() {
+    public MutableLiveData<List<Song>> getAllSongs() {
         List<String> titles = new ArrayList<>();
         Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_PARENT + ";", null);
@@ -104,6 +106,7 @@ public class Database extends SQLiteOpenHelper {
                 } while (cursor.moveToNext());
             }
         }
+        MutableLiveData<List<Song>> liveData = new MutableLiveData<>();
         List<Song> returnList = new ArrayList<>();
 
 
@@ -127,7 +130,8 @@ public class Database extends SQLiteOpenHelper {
             }
             returnList.add(song);
         }
-        return returnList;
+        liveData.setValue(returnList);
+        return liveData;
     }
 
     @Override
