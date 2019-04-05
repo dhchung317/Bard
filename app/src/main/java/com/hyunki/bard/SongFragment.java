@@ -20,6 +20,7 @@ public class SongFragment extends Fragment {
     TextView songTitle;
     Button playButton;
     SongPlayer player;
+    TextToSpeech tts;
 //    Database database = Database.getInstance(getActivity());
 
 
@@ -44,7 +45,7 @@ public class SongFragment extends Fragment {
         displayNotes = rootview.findViewById(R.id.all_notes_textview);
         songTitle = rootview.findViewById(R.id.songTitle_textView);
         playButton = rootview.findViewById(R.id.play_button);
-        TextToSpeech tts = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+        tts = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
 
@@ -79,5 +80,11 @@ public class SongFragment extends Fragment {
             }
         });
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        tts.shutdown();
     }
 }
