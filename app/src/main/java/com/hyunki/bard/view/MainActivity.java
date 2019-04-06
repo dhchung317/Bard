@@ -1,34 +1,33 @@
-package com.hyunki.bard;
+package com.hyunki.bard.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.hyunki.bard.R;
+import com.hyunki.bard.viewmodel.ViewModel;
+import com.hyunki.bard.controller.FragmentInteractionListener;
+import com.hyunki.bard.model.Song;
+
 public class MainActivity extends AppCompatActivity implements FragmentInteractionListener {
-
-    ViewModel viewModel;
-
+    private ViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewModel = new ViewModel(getApplication());
-//        final Database database = Database.getInstance(getApplicationContext());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, MainFragment.newInstance())
                 .commit();
-
     }
 
     @Override
     public void displaySong(Song song) {
-
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, SongFragment.newInstance(song))
                 .addToBackStack(null)
                 .commit();
-
     }
 
     @Override
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                 .replace(R.id.main_container, ComposeFragment.newInstance())
                 .addToBackStack(null)
                 .commit();
-
     }
 
     @Override
@@ -48,6 +46,5 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                 .replace(R.id.main_container, LibraryFragment.newInstance())
                 .addToBackStack(null)
                 .commit();
-
     }
 }

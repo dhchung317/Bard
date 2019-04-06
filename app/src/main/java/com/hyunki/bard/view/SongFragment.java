@@ -1,4 +1,4 @@
-package com.hyunki.bard;
+package com.hyunki.bard.view;
 
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
@@ -14,15 +14,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class SongFragment extends Fragment {
-    ViewModel viewModel;
-    TextView displayNotes;
-    TextView songTitle;
-    Button playButton;
-    SongPlayer player;
-    TextToSpeech tts;
-//    Database database = Database.getInstance(getActivity());
+import com.hyunki.bard.R;
+import com.hyunki.bard.SongPlayer;
+import com.hyunki.bard.viewmodel.ViewModel;
+import com.hyunki.bard.model.Note;
+import com.hyunki.bard.model.Song;
 
+public class SongFragment extends Fragment {
+    private ViewModel viewModel;
+    private TextView displayNotes;
+    private TextView songTitle;
+    private Button playButton;
+    private SongPlayer player;
+    private TextToSpeech tts;
 
     public static SongFragment newInstance(Song song) {
         Bundle bundle = new Bundle();
@@ -64,22 +68,21 @@ public class SongFragment extends Fragment {
         Bundle args = getArguments();
         final Song song = args.getParcelable("song");
 
-        for (Note n : song.songNotes) {
+        for (Note n : song.getSongNotes()) {
             if (displayNotesString == null) {
-                displayNotesString = n.note + " ";
+                displayNotesString = n.getNote() + " ";
             } else {
-                displayNotesString += n.note + " ";
+                displayNotesString += n.getNote() + " ";
             }
         }
         displayNotes.setText(displayNotesString);
-        songTitle.setText(song.songTitle);
+        songTitle.setText(song.getSongTitle());
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 player.playSong(song);
             }
         });
-
     }
 
     @Override

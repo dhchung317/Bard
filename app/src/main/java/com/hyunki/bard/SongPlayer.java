@@ -1,22 +1,22 @@
 package com.hyunki.bard;
 
 import android.content.Context;
-import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 
-import java.util.Arrays;
+import com.hyunki.bard.model.Note;
+import com.hyunki.bard.model.Song;
+
 import java.util.HashMap;
 
 import static android.content.ContentValues.TAG;
 
 public class SongPlayer {
-    Context context;
-    TextToSpeech tts;
-    HashMap<String, String> params = new HashMap<String, String>();
-
+    private Context context;
+    private TextToSpeech tts;
+    private HashMap<String, String> params = new HashMap<String, String>();
 
     public SongPlayer(Context context, TextToSpeech tts) {
         this.context = context;
@@ -24,54 +24,31 @@ public class SongPlayer {
         this.tts = tts;
     }
 
-
     public void playSong(final Song song) {
-
         Handler handler1 = new Handler();
         int totalSec = 0;
-        for (final Note n : song.songNotes) {
-            Log.d(TAG, "playSong: "+ n.rawNote);
-            final MediaPlayer note = MediaPlayer.create(context, n.rawNote);
 
-
-            handler1.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    note.seekTo(600);
-                    vocalize(n);
-                    note.start();
-
-                    note.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        @Override
-                        public void onCompletion(MediaPlayer mp) {
-                            note.release();
-                        }
-                    });
-
-
-                }
-
+        for (final Note n : song.getSongNotes()) {
+            Log.d(TAG, "playSong: "+ n.getRawNote());
+            final MediaPlayer note = MediaPlayer.create(context, n.getRawNote());
+            handler1.postDelayed(() -> {
+                note.seekTo(600);
+                vocalize(n);
+                note.start();
+                note.setOnCompletionListener(mp -> note.release());
             }, totalSec);
-            totalSec += n.duration;
+            totalSec += n.getDuration();
         }
     }
 
     public void vocalize(final Note n) {
         tts.setPitch(calculatePitch(n));
         tts.setSpeechRate((float) .4);
-        tts.speak(n.syllable, TextToSpeech.QUEUE_FLUSH, params);
-    }
-
-    public int calculateSongLength(final Song song) {
-        int duration = 0;
-        for (Note n : song.songNotes) {
-            duration += n.duration;
-        }
-        return duration;
+        tts.speak(n.getSyllable(), TextToSpeech.QUEUE_FLUSH, params);
     }
 
     public float calculatePitch(Note n) {
-        switch (n.note) {
+        switch (n.getNote()) {
             case "Aflat3":
                 return (float) 1.7;
             case "A3":

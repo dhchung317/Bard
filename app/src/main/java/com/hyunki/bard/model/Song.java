@@ -1,4 +1,4 @@
-package com.hyunki.bard;
+package com.hyunki.bard.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Song implements Parcelable {
-    List<Note> songNotes = new ArrayList<>();
-    String songTitle;
+    private List<Note> songNotes = new ArrayList<>();
+    private String songTitle;
 
     public void setSongTitle(String songTitle) {
         this.songTitle = songTitle;
@@ -57,4 +57,11 @@ public class Song implements Parcelable {
     }
 
 
+    public List<Note> getSongNotes() {
+        return songNotes;
+    }
+
+    public String getSongTitle() {
+        return songTitle;
+    }
 }

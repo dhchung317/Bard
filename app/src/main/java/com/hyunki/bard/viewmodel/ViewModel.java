@@ -1,6 +1,9 @@
-package com.hyunki.bard;
+package com.hyunki.bard.viewmodel;
 
 import android.app.Application;
+
+import com.hyunki.bard.model.Song;
+import com.hyunki.bard.repository.Repository;
 
 import java.util.List;
 
@@ -9,9 +12,12 @@ import androidx.lifecycle.LiveData;
 
 public class ViewModel extends AndroidViewModel {
     private Repository repository;
-    LiveData<List<Song>> allSongs;
 
+    public LiveData<List<Song>> getAllSongs() {
+        return allSongs;
+    }
 
+    private LiveData<List<Song>> allSongs;
 
     public ViewModel(Application application) {
         super(application);
@@ -19,11 +25,7 @@ public class ViewModel extends AndroidViewModel {
         this.allSongs = repository.getSongList();
     }
 
-
     public void addSong(Song song) {
         repository.addSong(song);
     }
-
-
-
 }

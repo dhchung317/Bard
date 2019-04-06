@@ -1,17 +1,31 @@
-package com.hyunki.bard;
+package com.hyunki.bard.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.RawRes;
-
 public class Note implements Parcelable {
-    String syllable;
-    String note;
-    int rawNote;
-    int duration;
+    private String syllable;
+    private String note;
+    private int rawNote;
+    private int duration;
 
-    public Note(int rawNote,String syllable,int duration,String note) {
+    public String getSyllable() {
+        return syllable;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public int getRawNote() {
+        return rawNote;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public Note(int rawNote, String syllable, int duration, String note) {
         this.syllable = syllable;
         this.rawNote = rawNote;
         this.duration = duration;

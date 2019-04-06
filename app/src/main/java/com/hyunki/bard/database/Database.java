@@ -1,15 +1,17 @@
-package com.hyunki.bard;
+package com.hyunki.bard.database;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.hyunki.bard.model.Note;
+import com.hyunki.bard.model.Song;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class Database extends SQLiteOpenHelper {
@@ -53,18 +55,18 @@ public class Database extends SQLiteOpenHelper {
 
     public void addSong(Song song) {
         Cursor cursor = getReadableDatabase().rawQuery(
-                "SELECT * FROM " + TABLE_PARENT + " WHERE song_name = '" + song.songTitle +
+                "SELECT * FROM " + TABLE_PARENT + " WHERE song_name = '" + song.getSongTitle() +
                         "';", null);
 
         if (cursor.getCount() == 0) {
             getWritableDatabase().execSQL("INSERT INTO " + TABLE_PARENT +
-                    "(song_name) VALUES('" + song.songTitle + "')");
+                    "(song_name) VALUES('" + song.getSongTitle() + "')");
         }
 
-        for (Note note : song.songNotes) {
+        for (Note note : song.getSongNotes()) {
             getWritableDatabase().execSQL("INSERT INTO " + TABLE_CHILD +
                     "(raw_note, note_syllable, note_duration, note_name, song_name) " +
-                    "VALUES('" + note.rawNote + "', '" + note.syllable + "', '" + note.duration + "','" + note.note + "', '" + song.songTitle + "');");
+                    "VALUES('" + note.getRawNote() + "', '" + note.getSyllable() + "', '" + note.getDuration() + "','" + note.getNote() + "', '" + song.getSongTitle() + "');");
         }
 
         cursor.close();
