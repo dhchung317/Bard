@@ -1,4 +1,4 @@
-package com.hyunki.bard;
+package com.hyunki.bard.view;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -19,15 +19,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hyunki.bard.R;
+import com.hyunki.bard.controller.FragmentInteractionListener;
+import com.hyunki.bard.model.Note;
+import com.hyunki.bard.model.Song;
+import com.hyunki.bard.viewmodel.ViewModel;
+
 import androidx.lifecycle.ViewModelProviders;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ComposeFragment extends Fragment implements View.OnClickListener {
-    FragmentInteractionListener listener;
-    ViewModel viewModel;
-    Song song;
+    private FragmentInteractionListener listener;
+    private ViewModel viewModel;
+    private Song song;
     @BindView(R.id.song_title_edit_text)
     EditText songTitle;
     @BindView(R.id.syllable_editText)
@@ -46,10 +52,9 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     Button addSong;
     @BindView(R.id.compose_to_library_button)
     Button gotoLibrary;
-    Database database;
-    int rawId;
 
-    String noteName;
+    private int rawId;
+    private String noteName;
 
     public static ComposeFragment newInstance() {
         return new ComposeFragment();
@@ -58,7 +63,6 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        database = Database.getInstance(getActivity());
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
     }
 
@@ -112,43 +116,48 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     private void deleteNotes() {
         song.deleteNote();
         String onDeleteCurrentNotesDisplay = null;
-        for (Note n : song.songNotes) {
+        for (Note n : song.getSongNotes()) {
             if (onDeleteCurrentNotesDisplay == null) {
-                onDeleteCurrentNotesDisplay = n.note;
+                onDeleteCurrentNotesDisplay = n.getNote();
             } else {
-                onDeleteCurrentNotesDisplay += " " + n.note;
+                onDeleteCurrentNotesDisplay += " " + n.getNote();
             }
         }
         currentNotes.setText(onDeleteCurrentNotesDisplay);
     }
 
     private void addNotes() {
+        String durationI = durationInput.getText().toString();
+
+        if(durationI.isEmpty()) {
+            durationI = "1000";
+            Toast.makeText(getActivity(), "no duration entered. default is 1000 ms", Toast.LENGTH_SHORT).show();
+        }
         song.addNote(new Note(
                 rawId,
                 syllable.getText().toString(),
-                Integer.parseInt(durationInput.getText().toString()),
+                Integer.parseInt(durationI),
                 noteName)
         );
         currentNotes.append(noteName + " ");
     }
 
     private void addSong() {
-        if (songTitle == null) {
+        if (songTitle.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "enter a title!", Toast.LENGTH_SHORT).show();
         } else {
             song.setSongTitle(songTitle.getText().toString());
-//            database.addSong(song);
             viewModel.addSong(song);
             Toast.makeText(getActivity(), "Song Added!", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @OnClick({R.id.add_song_button,
             R.id.deleteNote_button,
             R.id.compose_to_library_button,
             R.id.addNote_button}
     )
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

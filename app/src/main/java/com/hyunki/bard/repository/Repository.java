@@ -1,17 +1,17 @@
-package com.hyunki.bard;
+package com.hyunki.bard.repository;
 
 import android.app.Application;
+
+import com.hyunki.bard.database.Database;
+import com.hyunki.bard.model.Song;
 
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 public class Repository {
-
     private final Database database;
     private static Repository repositoryInstance;
-//    LiveData<List<Song>> songList;
 
     public static Repository getRepositoryInstance(Application application){
         if(repositoryInstance == null){
@@ -21,15 +21,8 @@ public class Repository {
     }
 
     private  Repository (Application application){
-//        database = Database.getInstance(application);
         database = new Database(application);
-//        this.songList = database.getAllSongs();
     }
-
-
-//    public void setSongList(){
-//        songList.setValue(database.getAllSongs());
-//    }
 
     public void addSong(Song song){
         database.addSong(song);
@@ -38,6 +31,4 @@ public class Repository {
     public LiveData<List<Song>> getSongList(){
         return database.getAllSongs();
     }
-
-
 }

@@ -1,11 +1,10 @@
-package com.hyunki.bard;
+package com.hyunki.bard.view;
 
 import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -14,11 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.hyunki.bard.R;
+import com.hyunki.bard.viewmodel.ViewModel;
+import com.hyunki.bard.controller.FragmentInteractionListener;
+
 public class MainFragment extends Fragment {
-    ViewModel viewModel;
-    ImageView logo;
-    Button compose;
-    Button library;
+    private ViewModel viewModel;
+    private ImageView logo;
+    private Button compose;
+    private Button library;
     private FragmentInteractionListener listener;
 
     public static MainFragment newInstance(){
@@ -46,7 +49,6 @@ public class MainFragment extends Fragment {
         logo = rootview.findViewById(R.id.main_imageView);
         compose = rootview.findViewById(R.id.main_compose_button);
         library = rootview.findViewById(R.id.main_songlist_button);
-
         return rootview;
     }
 
@@ -62,7 +64,6 @@ public class MainFragment extends Fragment {
                 listener.displayComposer();
             }
         });
-
         library.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

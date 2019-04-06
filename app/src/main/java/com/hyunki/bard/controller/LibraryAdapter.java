@@ -1,4 +1,4 @@
-package com.hyunki.bard;
+package com.hyunki.bard.controller;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.hyunki.bard.R;
+import com.hyunki.bard.model.Song;
 
 import java.util.List;
 
@@ -59,7 +62,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
         }
 
         public void onBind(final Song song, final FragmentInteractionListener listener) {
-            songTitle.setText(song.songTitle);
+            songTitle.setText(song.getSongTitle());
             songTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
