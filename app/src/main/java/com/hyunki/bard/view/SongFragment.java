@@ -1,30 +1,43 @@
 package com.hyunki.bard.view;
 
+import android.content.Context;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hyunki.bard.R;
 import com.hyunki.bard.SongPlayer;
+import com.hyunki.bard.controller.FragmentInteractionListener;
 import com.hyunki.bard.viewmodel.ViewModel;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
 
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class SongFragment extends Fragment {
+    private FragmentInteractionListener listener;
     private ViewModel viewModel;
     private TextView displayNotes;
     private TextView songTitle;
     private Button playButton;
+    private Button deleteButton;
     private SongPlayer player;
     private TextToSpeech tts;
 
@@ -42,6 +55,14 @@ public class SongFragment extends Fragment {
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentInteractionListener){
+            listener = (FragmentInteractionListener) context;
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,13 +70,8 @@ public class SongFragment extends Fragment {
         displayNotes = rootview.findViewById(R.id.all_notes_textview);
         songTitle = rootview.findViewById(R.id.songTitle_textView);
         playButton = rootview.findViewById(R.id.play_button);
-        tts = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
-            @Override
-            public void onInit(int status) {
-
-            }
-        });
-
+        deleteButton = rootview.findViewById(R.id.delete_button);
+        tts = new TextToSpeech(getActivity(), status -> {});
         player = new SongPlayer(getActivity(), tts);
         return rootview;
 
@@ -77,11 +93,13 @@ public class SongFragment extends Fragment {
         }
         displayNotes.setText(displayNotesString);
         songTitle.setText(song.getSongTitle());
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                player.playSong(song);
-            }
+        playButton.setOnClickListener(v -> player.playSong(viewModel.getSong(song)));
+        deleteButton.setOnClickListener(v -> {
+            viewModel.deleteSong(song);
+            Toast.makeText(getActivity(), "Song deleted", Toast.LENGTH_SHORT).show();
+            getFragmentManager().popBackStack("displayLibrary",1);
+            getFragmentManager().popBackStack("displaySong",0);
+            listener.displayLibrary();
         });
     }
 
@@ -91,3 +109,4 @@ public class SongFragment extends Fragment {
         tts.shutdown();
     }
 }
+

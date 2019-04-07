@@ -24,6 +24,7 @@
             android:id="@+id/library_songTitle_textview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/vinque"
             android:textAlignment="center"
             android:textSize="36sp"
             android:textStyle="bold"

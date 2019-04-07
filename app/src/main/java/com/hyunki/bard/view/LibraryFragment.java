@@ -4,26 +4,25 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.hyunki.bard.R;
 import com.hyunki.bard.viewmodel.ViewModel;
 import com.hyunki.bard.controller.LibraryAdapter;
-import com.hyunki.bard.model.Song;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class LibraryFragment extends Fragment {
     private ViewModel viewModel;
     private RecyclerView recyclerView;
     private LibraryAdapter adapter;
+    private Button exitLibraryButton;
 
     public LibraryFragment() {
     }
@@ -43,6 +42,7 @@ public class LibraryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_library, container, false);
         recyclerView = rootview.findViewById(R.id.recyclerview);
+        exitLibraryButton = rootview.findViewById(R.id.exit_library_button);
         adapter = new LibraryAdapter(new ArrayList<>());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -53,16 +53,17 @@ public class LibraryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        exitLibraryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
     }
 
     public void setAdapter(){
         if(viewModel.getAllSongs() != null) {
-            viewModel.getAllSongs().observe(getViewLifecycleOwner(), new Observer<List<Song>>() {
-                @Override
-                public void onChanged(List<Song> songs) {
-                    adapter.setSongList(songs);
-                }
-            });
+            viewModel.getAllSongs().observe(getViewLifecycleOwner(), songs -> adapter.setSongList(songs));
         }
     }
 }

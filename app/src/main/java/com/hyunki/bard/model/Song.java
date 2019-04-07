@@ -1,5 +1,6 @@
 package com.hyunki.bard.model;
 
+import android.database.Observable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -64,4 +65,6 @@ public class Song implements Parcelable {
     public String getSongTitle() {
         return songTitle;
     }
+
+
 }

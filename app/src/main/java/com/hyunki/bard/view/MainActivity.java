@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, SongFragment.newInstance(song))
-                .addToBackStack(null)
+                .addToBackStack("displaySong")
                 .commit();
     }
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, ComposeFragment.newInstance())
-                .addToBackStack(null)
+                .addToBackStack("composeSong")
                 .commit();
     }
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, LibraryFragment.newInstance())
-                .addToBackStack(null)
+                .addToBackStack("displayLibrary")
                 .commit();
     }
 }

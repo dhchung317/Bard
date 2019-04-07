@@ -20,14 +20,6 @@ public class Database extends SQLiteOpenHelper {
     private static final String TABLE_CHILD = "Notes";
     private static final String DATABASE_NAME = "songs.db";
     private static final int SCHEMA_VERSION = 1;
-//    private static Database databaseInstance;
-//
-//    public static synchronized Database getInstance(Context context) {
-//        if (databaseInstance == null) {
-//            databaseInstance = new Database(context);
-//        }
-//        return databaseInstance;
-//    }
 
     public Database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, SCHEMA_VERSION);
@@ -49,8 +41,6 @@ public class Database extends SQLiteOpenHelper {
                         "note_name TEXT," +
                         "song_name TEXT," +
                         "FOREIGN KEY(song_name) REFERENCES TABLE_PARENT(song_name));");
-
-
     }
 
     public void addSong(Song song) {
@@ -68,13 +58,10 @@ public class Database extends SQLiteOpenHelper {
                     "(raw_note, note_syllable, note_duration, note_name, song_name) " +
                     "VALUES('" + note.getRawNote() + "', '" + note.getSyllable() + "', '" + note.getDuration() + "','" + note.getNote() + "', '" + song.getSongTitle() + "');");
         }
-
         cursor.close();
     }
 
-
     public Song getSong(String songName) {
-
         Song song = new Song(songName);
         Note note = null;
         Cursor cursor = getReadableDatabase().rawQuery(
@@ -92,15 +79,12 @@ public class Database extends SQLiteOpenHelper {
             }
         }
         return song;
-
     }
 
     public MutableLiveData<List<Song>> getAllSongs() {
         List<String> titles = new ArrayList<>();
         Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_PARENT + ";", null);
-
-
         if (cursor != null) {
             if (cursor.moveToFirst()) {
                 do {
@@ -110,8 +94,6 @@ public class Database extends SQLiteOpenHelper {
         }
         MutableLiveData<List<Song>> liveData = new MutableLiveData<>();
         List<Song> returnList = new ArrayList<>();
-
-
         for (String s : titles) {
             Cursor childCursor = getReadableDatabase().rawQuery(
                     "SELECT * FROM " + TABLE_CHILD + " WHERE song_name " + "= '" + s + "';", null);
@@ -134,6 +116,24 @@ public class Database extends SQLiteOpenHelper {
         }
         liveData.setValue(returnList);
         return liveData;
+    }
+
+    public void deleteSong(String songTitle) {
+        Cursor cursor = getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_PARENT + " WHERE song_name " + "= '" + songTitle + "';",
+                null);
+        Cursor childCursor = getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_CHILD + " WHERE song_name " + "= '" + songTitle + "';",
+                null);
+        if(cursor != null) {
+            getWritableDatabase().execSQL(
+                    "DELETE FROM " + TABLE_PARENT + " WHERE song_name " + "= '" + songTitle + "';");
+        }
+        do  {
+            getWritableDatabase().execSQL(
+                    "DELETE FROM " + TABLE_CHILD + " WHERE song_name " + "= '" + songTitle + "';");
+        }while(childCursor.moveToNext());
+
     }
 
     @Override
