@@ -13,6 +13,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/vinque"
         android:text="PLAY SONG"
+        android:textColor="@color/colorAppHeaders"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/songTitle_textView"
@@ -34,17 +35,21 @@
         app:layout_constraintTop_toBottomOf="@+id/playSong_textview" />
 
     <Button
+        android:background="@drawable/button"
+        android:textColor="@color/colorAppButtonText"
         android:id="@+id/play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+
         android:fontFamily="@font/vinque"
         android:text="Play"
+
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/exit_song_button"
         app:layout_constraintEnd_toStartOf="@+id/delete_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +63,7 @@
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/vinque"
         android:text="Notes"
+        android:textColor="@color/colorAppHeaders"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/all_notes_textview"
@@ -92,7 +98,9 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/play_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/play_button" />
+        app:layout_constraintStart_toEndOf="@+id/play_button"
+        android:background="@drawable/button"
+        android:textColor="@color/colorAppButtonText"/>
 
     <ImageView
         android:id="@+id/playSong_imageview"
@@ -111,7 +119,7 @@
         app:srcCompat="@drawable/play" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/exit_song_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -123,6 +131,8 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/button"
+        android:textColor="@color/colorAppButtonText"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

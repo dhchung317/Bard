@@ -1,6 +1,8 @@
 package com.hyunki.bard.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
+
 import android.os.Bundle;
 
 import com.hyunki.bard.R;
@@ -15,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewModel = new ViewModel(getApplication());
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_container, MainFragment.newInstance())
                 .commit();

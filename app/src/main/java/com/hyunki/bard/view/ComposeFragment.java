@@ -118,12 +118,12 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
             song.deleteNote();
         }
 
-        String onDeleteCurrentNotesDisplay = null;
+        String onDeleteCurrentNotesDisplay = "";
         for (Note n : song.getSongNotes()) {
-            if (onDeleteCurrentNotesDisplay == null) {
-                onDeleteCurrentNotesDisplay = n.getNote();
+            if (currentNotes.getText().toString().isEmpty()) {
+                onDeleteCurrentNotesDisplay = n.getNote() + " ";
             } else {
-                onDeleteCurrentNotesDisplay += " " + n.getNote();
+                onDeleteCurrentNotesDisplay += n.getNote() + " ";
             }
         }
         currentNotes.setText(onDeleteCurrentNotesDisplay);

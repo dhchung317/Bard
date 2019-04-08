@@ -7,13 +7,10 @@ import android.speech.tts.TextToSpeech;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -27,10 +24,6 @@ import com.hyunki.bard.viewmodel.ViewModel;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
 public class SongFragment extends Fragment {
     private FragmentInteractionListener listener;
     private ViewModel viewModel;
@@ -40,6 +33,7 @@ public class SongFragment extends Fragment {
     private Button deleteButton;
     private SongPlayer player;
     private TextToSpeech tts;
+    private Button exitButton;
 
     public static SongFragment newInstance(Song song) {
         Bundle bundle = new Bundle();
@@ -71,6 +65,7 @@ public class SongFragment extends Fragment {
         songTitle = rootview.findViewById(R.id.songTitle_textView);
         playButton = rootview.findViewById(R.id.play_button);
         deleteButton = rootview.findViewById(R.id.delete_button);
+        exitButton = rootview.findViewById(R.id.exit_song_button);
         tts = new TextToSpeech(getActivity(), status -> {});
         player = new SongPlayer(getActivity(), tts);
         return rootview;
@@ -93,7 +88,15 @@ public class SongFragment extends Fragment {
         }
         displayNotes.setText(displayNotesString);
         songTitle.setText(song.getSongTitle());
-        playButton.setOnClickListener(v -> player.playSong(viewModel.getSong(song)));
+        playButton.setOnClickListener(v -> {
+            player.playSong(viewModel.getSong(song));
+            while(player.getMp().isPlaying()){
+                playButton.setEnabled(false);
+            }
+            playButton.setEnabled(true);
+
+        });
+        exitButton.setOnClickListener(v -> getActivity().onBackPressed());
         deleteButton.setOnClickListener(v -> {
             viewModel.deleteSong(song);
             Toast.makeText(getActivity(), "Song deleted", Toast.LENGTH_SHORT).show();
@@ -105,8 +108,9 @@ public class SongFragment extends Fragment {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         tts.shutdown();
+        player.getMp().release();
+        super.onDestroy();
     }
 }
 

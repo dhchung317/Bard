@@ -27,7 +27,6 @@ public class Database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         db.execSQL(
                 "CREATE TABLE " + TABLE_PARENT +
                         " (_id INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -133,11 +132,8 @@ public class Database extends SQLiteOpenHelper {
             getWritableDatabase().execSQL(
                     "DELETE FROM " + TABLE_CHILD + " WHERE song_name " + "= '" + songTitle + "';");
         }while(childCursor.moveToNext());
-
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
 }

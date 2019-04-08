@@ -40,7 +40,6 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
     @Override
     public void onBindViewHolder(@NonNull LibraryViewHolder libraryViewHolder, int i) {
         libraryViewHolder.onBind(songList.get(i), listener);
-
     }
 
     @Override
