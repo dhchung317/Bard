@@ -21,11 +21,14 @@
 
     <Button
         android:id="@+id/main_compose_button"
+        android:padding="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/vinque"
         android:text="compose"
+        android:background="@drawable/button"
+        android:textColor="@color/colorAppButtonText"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/main_songlist_button"
@@ -37,8 +40,12 @@
         android:id="@+id/main_songlist_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:fontFamily="@font/vinque"
+        android:background="@drawable/button"
+
         android:text="SongList"
+        android:textColor="@color/colorAppButtonText"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,6 +63,7 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/vinque"
         android:text="BARD"
+        android:textColor="@color/colorAppHeaders"
         android:textSize="50sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/main_imageView"

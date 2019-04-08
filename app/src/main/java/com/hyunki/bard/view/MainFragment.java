@@ -55,9 +55,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         logo.setImageResource(R.drawable.bardlogo);
-
         compose.setOnClickListener(v -> listener.displayComposer());
         library.setOnClickListener(v -> listener.displayLibrary());
     }
