@@ -71,5 +71,4 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
             });
         }
     }
-
 }

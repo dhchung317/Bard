@@ -114,7 +114,10 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void deleteNotes() {
-        song.deleteNote();
+        if(song.getSongNotes().size() > 0) {
+            song.deleteNote();
+        }
+
         String onDeleteCurrentNotesDisplay = null;
         for (Note n : song.getSongNotes()) {
             if (onDeleteCurrentNotesDisplay == null) {

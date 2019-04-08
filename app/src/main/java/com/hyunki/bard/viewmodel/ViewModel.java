@@ -28,4 +28,6 @@ public class ViewModel extends AndroidViewModel {
     public void addSong(Song song) {
         repository.addSong(song);
     }
+    public Song getSong(Song song) { return repository.getSong(song);}
+    public void  deleteSong(Song song) { repository.deleteSong(song);}
 }

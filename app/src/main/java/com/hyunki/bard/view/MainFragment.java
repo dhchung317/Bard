@@ -58,17 +58,7 @@ public class MainFragment extends Fragment {
 
         logo.setImageResource(R.drawable.bardlogo);
 
-        compose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.displayComposer();
-            }
-        });
-        library.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.displayLibrary();
-            }
-    });
+        compose.setOnClickListener(v -> listener.displayComposer());
+        library.setOnClickListener(v -> listener.displayLibrary());
     }
 }

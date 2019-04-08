@@ -27,8 +27,9 @@ public class Repository {
     public void addSong(Song song){
         database.addSong(song);
     }
-
+    public Song getSong(Song song) { return database.getSong(song.getSongTitle());}
     public LiveData<List<Song>> getSongList(){
         return database.getAllSongs();
     }
+    public void deleteSong(Song song) { database.deleteSong(song.getSongTitle());}
 }
