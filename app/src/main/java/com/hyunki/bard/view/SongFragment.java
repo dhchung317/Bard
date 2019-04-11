@@ -1,7 +1,6 @@
 package com.hyunki.bard.view;
 
 import android.content.Context;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 
@@ -88,11 +87,14 @@ public class SongFragment extends Fragment {
         }
         displayNotes.setText(displayNotesString);
         songTitle.setText(song.getSongTitle());
+
         playButton.setOnClickListener(v -> {
             player.playSong(viewModel.getSong(song.getSongTitle()));
+
             while(player.getMp().isPlaying()){
                 playButton.setEnabled(false);
             }
+
             playButton.setEnabled(true);
 
         });

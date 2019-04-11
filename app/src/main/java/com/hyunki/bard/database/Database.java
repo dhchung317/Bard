@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
@@ -61,11 +62,13 @@ public class Database extends SQLiteOpenHelper {
     }
 
     public Song getSong(String songName) {
-        Song song = new Song(songName);
+        Song song = new Song("");
         Note note = null;
+        Cursor checker = getReadableDatabase().rawQuery(
+                "SELECT * FROM " + TABLE_PARENT + " WHERE song_name " + "= '" + songName + "';", null);
         Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT * FROM " + TABLE_CHILD + " WHERE song_name " + "= '" + songName + "';", null);
-        if (cursor != null) {
+        if (checker.getCount() > 0) {
             if (cursor.moveToFirst()) {
                 do {
                     note = new Note(
@@ -76,7 +79,10 @@ public class Database extends SQLiteOpenHelper {
                     song.addNote(note);
                 } while (cursor.moveToNext());
             }
+            song.setSongTitle(songName);
         }
+        checker.close();
+        cursor.close();
         return song;
     }
 
