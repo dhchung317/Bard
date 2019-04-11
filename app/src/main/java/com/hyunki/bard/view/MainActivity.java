@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
+import android.view.View;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
             }
             @Override
             public void onAnimationEnd(Animation animation) {
+                splash.setVisibility(View.INVISIBLE);
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_container, MainFragment.newInstance())
                         .commit();

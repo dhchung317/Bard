@@ -114,7 +114,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void deleteNotes() {
-        if(song.getSongNotes().size() > 0) {
+        if (song.getSongNotes().size() > 0) {
             song.deleteNote();
         }
 
@@ -132,7 +132,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     private void addNotes() {
         String durationI = durationInput.getText().toString();
 
-        if(durationI.isEmpty()) {
+        if (durationI.isEmpty()) {
             durationI = "1000";
             Toast.makeText(getActivity(), "no duration entered. default is 1000 ms", Toast.LENGTH_SHORT).show();
         }
@@ -148,16 +148,16 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     private void addSong() {
         if (songTitle.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "enter a title!", Toast.LENGTH_SHORT).show();
+        } else if (!viewModel.getSong(songTitle.getText().toString()).getSongTitle().equals("")) {
+            Toast.makeText(getActivity(), "title exists! choose a different title", Toast.LENGTH_SHORT).show();
         } else {
-            if(viewModel.getSong(songTitle.getText().toString()) != null){
-                Toast.makeText(getActivity(), "title exists! choose a different title", Toast.LENGTH_SHORT).show();
-            }else {
-                song.setSongTitle(songTitle.getText().toString());
-                viewModel.addSong(song);
-                Toast.makeText(getActivity(), "Song Added!", Toast.LENGTH_SHORT).show();
-            }
+            Log.d("danny",viewModel.getSong(songTitle.getText().toString()).getSongTitle());
+            song.setSongTitle(songTitle.getText().toString());
+            viewModel.addSong(song);
+            Toast.makeText(getActivity(), "Song Added!", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @OnClick({R.id.add_song_button,
             R.id.deleteNote_button,

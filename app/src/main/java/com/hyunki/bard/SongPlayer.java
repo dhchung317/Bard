@@ -18,7 +18,7 @@ import java.util.TimerTask;
 public class SongPlayer {
     private Context context;
     private TextToSpeech tts;
-    private HashMap<String, String> params = new HashMap<String, String>();
+    private HashMap<String, String> params = new HashMap<>();
     private MediaPlayer mp;
     private List<Note> playlist;
     private int i = 0;
@@ -39,7 +39,9 @@ public class SongPlayer {
         if(mp.isPlaying()){
             Toast.makeText(context, "media player is playing", Toast.LENGTH_SHORT).show();
         }else {
-            if (playlist.size() >= 1 && i < playlist.size()) playAll(playlist.get(0));
+            if (playlist.size() >= 1 && i < playlist.size()) {
+                playAll(playlist.get(0));
+            }
         }
     }
 
@@ -53,7 +55,6 @@ public class SongPlayer {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(() -> {
                     mp.reset();
