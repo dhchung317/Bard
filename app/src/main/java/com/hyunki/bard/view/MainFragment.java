@@ -12,13 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.hyunki.bard.Animations;
 import com.hyunki.bard.R;
 import com.hyunki.bard.viewmodel.ViewModel;
 import com.hyunki.bard.controller.FragmentInteractionListener;
 
 public class MainFragment extends Fragment {
     private ViewModel viewModel;
+    private TextView mainTitle;
     private ImageView logo;
     private Button compose;
     private Button library;
@@ -47,8 +50,10 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_main,container,false);
         logo = rootview.findViewById(R.id.main_imageView);
+        mainTitle = rootview.findViewById(R.id.main_title_textview);
         compose = rootview.findViewById(R.id.main_compose_button);
         library = rootview.findViewById(R.id.main_songlist_button);
+
         return rootview;
     }
 
@@ -58,5 +63,8 @@ public class MainFragment extends Fragment {
         logo.setImageResource(R.drawable.bardlogo);
         compose.setOnClickListener(v -> listener.displayComposer());
         library.setOnClickListener(v -> listener.displayLibrary());
+        Animations.setDropTitleAnimation(mainTitle);
+        Animations.setPopUpAnimation(compose);
+        Animations.setPopUpAnimation(library);
     }
 }

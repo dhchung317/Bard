@@ -50,12 +50,12 @@ public class Database extends SQLiteOpenHelper {
         if (cursor.getCount() == 0) {
             getWritableDatabase().execSQL("INSERT INTO " + TABLE_PARENT +
                     "(song_name) VALUES('" + song.getSongTitle() + "')");
-        }
 
-        for (Note note : song.getSongNotes()) {
-            getWritableDatabase().execSQL("INSERT INTO " + TABLE_CHILD +
-                    "(raw_note, note_syllable, note_duration, note_name, song_name) " +
-                    "VALUES('" + note.getRawNote() + "', '" + note.getSyllable() + "', '" + note.getDuration() + "','" + note.getNote() + "', '" + song.getSongTitle() + "');");
+            for (Note note : song.getSongNotes()) {
+                getWritableDatabase().execSQL("INSERT INTO " + TABLE_CHILD +
+                        "(raw_note, note_syllable, note_duration, note_name, song_name) " +
+                        "VALUES('" + note.getRawNote() + "', '" + note.getSyllable() + "', '" + note.getDuration() + "','" + note.getNote() + "', '" + song.getSongTitle() + "');");
+            }
         }
         cursor.close();
     }
