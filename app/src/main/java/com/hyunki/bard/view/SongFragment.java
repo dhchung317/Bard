@@ -89,7 +89,7 @@ public class SongFragment extends Fragment {
         displayNotes.setText(displayNotesString);
         songTitle.setText(song.getSongTitle());
         playButton.setOnClickListener(v -> {
-            player.playSong(viewModel.getSong(song));
+            player.playSong(viewModel.getSong(song.getSongTitle()));
             while(player.getMp().isPlaying()){
                 playButton.setEnabled(false);
             }
@@ -109,7 +109,9 @@ public class SongFragment extends Fragment {
     @Override
     public void onDestroy() {
         tts.shutdown();
-        player.getMp().release();
+        if(player.getMp() != null) {
+            player.getMp().release();
+        }
         super.onDestroy();
     }
 }

@@ -149,9 +149,13 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
         if (songTitle.getText().toString().isEmpty()) {
             Toast.makeText(getActivity(), "enter a title!", Toast.LENGTH_SHORT).show();
         } else {
-            song.setSongTitle(songTitle.getText().toString());
-            viewModel.addSong(song);
-            Toast.makeText(getActivity(), "Song Added!", Toast.LENGTH_SHORT).show();
+            if(viewModel.getSong(songTitle.getText().toString()) != null){
+                Toast.makeText(getActivity(), "title exists! choose a different title", Toast.LENGTH_SHORT).show();
+            }else {
+                song.setSongTitle(songTitle.getText().toString());
+                viewModel.addSong(song);
+                Toast.makeText(getActivity(), "Song Added!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

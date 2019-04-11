@@ -6,6 +6,10 @@
                 <shape>
                     <solid android:color="@color/colorAppButton"/>
                     <corners android:radius="4dp" />
+                    <padding android:bottom="8dp"
+                        android:left="8dp"
+                        android:right="8dp"
+                        android:top="8dp"/>
                 </shape>
             </item>
         </layer-list>

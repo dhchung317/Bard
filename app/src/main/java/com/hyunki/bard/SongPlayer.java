@@ -29,6 +29,7 @@ public class SongPlayer {
         this.context = context;
         params.put(TextToSpeech.Engine.KEY_PARAM_VOLUME, "0.1");
         this.tts = tts;
+        tts.setSpeechRate((float) .3);
         timer = new Timer();
     }
 
@@ -45,7 +46,6 @@ public class SongPlayer {
 
     public void vocalize(final Note n) {
         tts.setPitch(calculatePitch(n));
-        tts.setSpeechRate((float) .4);
         tts.speak(n.getSyllable(), TextToSpeech.QUEUE_FLUSH, params);
     }
 
@@ -59,14 +59,14 @@ public class SongPlayer {
                     mp.reset();
                     if (!started){
                         mp = MediaPlayer.create(context, playlist.get(i).getRawNote());
-                        mp.seekTo(800);
+                        mp.seekTo(600);
                         mp.start();
                         vocalize(playlist.get(i));
                         playAll(playlist.get(i));
                         started = true;
                     }else if (i < playlist.size() - 1) {
                         mp = MediaPlayer.create(context, playlist.get(++i).getRawNote());
-                        mp.seekTo(800);
+                        mp.seekTo(600);
                         mp.start();
                         vocalize(playlist.get(i));
                         if(i != playlist.size() - 1) {
