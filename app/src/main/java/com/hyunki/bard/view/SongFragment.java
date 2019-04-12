@@ -77,7 +77,6 @@ public class SongFragment extends Fragment implements View.OnClickListener {
         tts = new TextToSpeech(getActivity(), status -> {});
         player = new SongPlayer(getActivity(), tts);
         return rootview;
-
     }
 
     @Override
@@ -101,17 +100,6 @@ public class SongFragment extends Fragment implements View.OnClickListener {
 
         displayNotes.setText(displayNotesString);
         songTitle.setText(song.getSongTitle());
-
-//        playButton.setOnClickListener(v -> {
-//            playSong(song);
-//
-//        });
-//
-//        exitButton.setOnClickListener(v -> exitSongFragment());
-//
-//        deleteButton.setOnClickListener(v -> {
-//            deleteSong(song);
-//        });
     }
 
     private void deleteSong(Song song) {

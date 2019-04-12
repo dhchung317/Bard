@@ -54,8 +54,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         logo.setImageResource(R.drawable.bardlogo);
-//        compose.setOnClickListener(v -> listener.displayComposer());
-//        library.setOnClickListener(v -> listener.displayLibrary());
         Animations.setDropTitleAnimation(mainTitle);
         Animations.setPopUpAnimation(compose);
         Animations.setPopUpAnimation(library);

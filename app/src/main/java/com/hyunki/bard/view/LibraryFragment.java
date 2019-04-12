@@ -44,10 +44,8 @@ public class LibraryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootview = inflater.inflate(R.layout.fragment_library, container, false);
-//        recyclerView = rootview.findViewById(R.id.recyclerview);
-//        exitLibraryButton = rootview.findViewById(R.id.exit_library_button);
-        return rootview;
+        return inflater.inflate(R.layout.fragment_library, container, false);
+
     }
 
     @Override

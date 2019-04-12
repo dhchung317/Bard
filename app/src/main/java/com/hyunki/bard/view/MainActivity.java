@@ -27,14 +27,10 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
         splash = findViewById(R.id.mainActivity_splash_imageView);
-
         Animation drop = Animations.getDropImageAnimation(splash);
-
         drop.setAnimationListener(new Animation.AnimationListener() {
             @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
+            public void onAnimationStart(Animation animation) {}
             @Override
             public void onAnimationEnd(Animation animation) {
                 splash.setVisibility(View.INVISIBLE);
@@ -43,11 +39,8 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                         .commit();
             }
             @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
+            public void onAnimationRepeat(Animation animation) {}
         });
-
         splash.startAnimation(drop);
     }
 
