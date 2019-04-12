@@ -17,13 +17,16 @@ import com.hyunki.bard.model.Song;
 public class MainActivity extends AppCompatActivity implements FragmentInteractionListener {
     private ViewModel viewModel;
     private ImageView splash;
+    public static final String SONG_FRAGMENT_KEY = "displaySong";
+    public static final String COMPOSE_FRAGMENT_KEY = "composeSong";
+    public static final String LIBRARY_FRAGMENT_KEY = "displayLibrary";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        splash = findViewById(R.id.splash_imageView);
+        splash = findViewById(R.id.mainActivity_splash_imageView);
 
         Animation drop = Animations.getDropImageAnimation(splash);
 
@@ -53,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, SongFragment.newInstance(song))
-                .addToBackStack("displaySong")
+                .addToBackStack(SONG_FRAGMENT_KEY)
                 .commit();
     }
 
@@ -62,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, ComposeFragment.newInstance())
-                .addToBackStack("composeSong")
+                .addToBackStack(COMPOSE_FRAGMENT_KEY)
                 .commit();
     }
 
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_container, LibraryFragment.newInstance())
-                .addToBackStack("displayLibrary")
+                .addToBackStack(LIBRARY_FRAGMENT_KEY)
                 .commit();
     }
 }

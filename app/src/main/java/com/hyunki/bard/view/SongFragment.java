@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,20 +26,31 @@ import com.hyunki.bard.viewmodel.ViewModel;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
 
-public class SongFragment extends Fragment {
+import java.util.Objects;
+
+public class SongFragment extends Fragment implements View.OnClickListener {
     private FragmentInteractionListener listener;
     private ViewModel viewModel;
-    private TextView displayNotes;
-    private TextView songTitle;
-    private Button playButton;
-    private Button deleteButton;
-    private SongPlayer player;
     private TextToSpeech tts;
-    private Button exitButton;
+    private SongPlayer player;
+    private Song song;
+    private static final String SONG_FRAGMENT_BUNDLE_KEY = "song";
+
+    @BindView(R.id.songFragment_displayNotes_textview)
+    TextView displayNotes;
+    @BindView(R.id.songFragment_songTitle_textview)
+    TextView songTitle;
+    @BindView(R.id.songFragment_play_button)
+    Button playButton;
+    @BindView(R.id.songFragment_exit_button)
+    Button deleteButton;
+    @BindView(R.id.songFragment_delete_button)
+    Button exitButton;
+
 
     public static SongFragment newInstance(Song song) {
         Bundle bundle = new Bundle();
-        bundle.putParcelable("song", song);
+        bundle.putParcelable(SONG_FRAGMENT_BUNDLE_KEY, song);
         SongFragment fragment = new SongFragment();
         fragment.setArguments(bundle);
         return fragment;
@@ -60,11 +74,6 @@ public class SongFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootview = inflater.inflate(R.layout.fragment_song, container, false);
-        displayNotes = rootview.findViewById(R.id.all_notes_textview);
-        songTitle = rootview.findViewById(R.id.songTitle_textView);
-        playButton = rootview.findViewById(R.id.play_button);
-        deleteButton = rootview.findViewById(R.id.delete_button);
-        exitButton = rootview.findViewById(R.id.exit_song_button);
         tts = new TextToSpeech(getActivity(), status -> {});
         player = new SongPlayer(getActivity(), tts);
         return rootview;
@@ -74,10 +83,14 @@ public class SongFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
         String displayNotesString = null;
         Bundle args = getArguments();
-        final Song song = args.getParcelable("song");
 
+        assert args != null;
+        song = args.getParcelable(SONG_FRAGMENT_BUNDLE_KEY);
+
+        assert song != null;
         for (Note n : song.getSongNotes()) {
             if (displayNotesString == null) {
                 displayNotesString = n.getNote() + " ";
@@ -85,27 +98,60 @@ public class SongFragment extends Fragment {
                 displayNotesString += n.getNote() + " ";
             }
         }
+
         displayNotes.setText(displayNotesString);
         songTitle.setText(song.getSongTitle());
 
-        playButton.setOnClickListener(v -> {
-            player.playSong(viewModel.getSong(song.getSongTitle()));
+//        playButton.setOnClickListener(v -> {
+//            playSong(song);
+//
+//        });
+//
+//        exitButton.setOnClickListener(v -> exitSongFragment());
+//
+//        deleteButton.setOnClickListener(v -> {
+//            deleteSong(song);
+//        });
+    }
 
-            while(player.getMp().isPlaying()){
-                playButton.setEnabled(false);
-            }
+    private void deleteSong(Song song) {
+        viewModel.deleteSong(song);
+        Toast.makeText(getActivity(), getString(R.string.song_deleted_message), Toast.LENGTH_SHORT).show();
+        assert getFragmentManager() != null;
+        getFragmentManager().popBackStack(MainActivity.LIBRARY_FRAGMENT_KEY,1);
+        getFragmentManager().popBackStack(MainActivity.SONG_FRAGMENT_KEY,0);
+        listener.displayLibrary();
+    }
 
-            playButton.setEnabled(true);
+    private void exitSongFragment() {
+        Objects.requireNonNull(getActivity()).onBackPressed();
+    }
 
-        });
-        exitButton.setOnClickListener(v -> getActivity().onBackPressed());
-        deleteButton.setOnClickListener(v -> {
-            viewModel.deleteSong(song);
-            Toast.makeText(getActivity(), "Song deleted", Toast.LENGTH_SHORT).show();
-            getFragmentManager().popBackStack("displayLibrary",1);
-            getFragmentManager().popBackStack("displaySong",0);
-            listener.displayLibrary();
-        });
+    private void playSong(Song song) {
+        player.playSong(viewModel.getSong(song.getSongTitle()));
+        while(player.getMp().isPlaying()){
+            playButton.setEnabled(false);
+        }
+        playButton.setEnabled(true);
+    }
+
+    @OnClick({R.id.songFragment_play_button,
+            R.id.songFragment_delete_button,
+            R.id.songFragment_exit_button})
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.songFragment_play_button:
+                playSong(song);
+                break;
+            case R.id.songFragment_delete_button:
+                deleteSong(song);
+                break;
+            case R.id.songFragment_exit_button:
+                exitSongFragment();
+                break;
+        }
     }
 
     @Override
