@@ -45,7 +45,6 @@ public class SongPlayer {
         }
     }
 
-
     public void vocalize(final Note n) {
         tts.setPitch(calculatePitch(n));
         tts.speak(n.getSyllable(), TextToSpeech.QUEUE_FLUSH, params);

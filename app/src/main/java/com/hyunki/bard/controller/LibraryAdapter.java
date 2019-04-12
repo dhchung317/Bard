@@ -32,7 +32,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
             listener = (FragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement FragmentInteractionListener");
+                    + context.getString(R.string.fragment_exception_message));
         }
         return new LibraryViewHolder(child);
     }
@@ -62,12 +62,7 @@ public class LibraryAdapter extends RecyclerView.Adapter<LibraryAdapter.LibraryV
 
         public void onBind(final Song song, final FragmentInteractionListener listener) {
             songTitle.setText(song.getSongTitle());
-            songTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.displaySong(song);
-                }
-            });
+            songTitle.setOnClickListener(v -> listener.displaySong(song));
         }
     }
 }

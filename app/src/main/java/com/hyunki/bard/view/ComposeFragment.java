@@ -7,7 +7,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,27 +33,27 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     private FragmentInteractionListener listener;
     private ViewModel viewModel;
     private Song song;
-    @BindView(R.id.song_title_edit_text)
-    EditText songTitle;
-    @BindView(R.id.syllable_editText)
-    EditText syllable;
-    @BindView(R.id.duration_editText)
-    EditText durationInput;
-    @BindView(R.id.current_textView)
-    TextView currentNotes;
-    @BindView(R.id.notes_spinner)
-    Spinner notes;
-    @BindView(R.id.addNote_button)
-    Button addNotes;
-    @BindView(R.id.deleteNote_button)
-    Button deleteNotes;
-    @BindView(R.id.add_song_button)
-    Button addSong;
-    @BindView(R.id.compose_to_library_button)
-    Button gotoLibrary;
-
     private int rawId;
     private String noteName;
+    private String defaultDuration;
+    @BindView(R.id.composeFragment_songTitle_editText)
+    EditText songTitle;
+    @BindView(R.id.composeFragment_syllable_editText)
+    EditText syllable;
+    @BindView(R.id.composeFragment_duration_editText)
+    EditText durationInput;
+    @BindView(R.id.composeFragment_displayCurrentNotes_textView)
+    TextView currentNotes;
+    @BindView(R.id.composeFragment_notes_spinner)
+    Spinner notes;
+    @BindView(R.id.composeFragment_addNote_button)
+    Button addNotes;
+    @BindView(R.id.composeFragment_deleteNote_button)
+    Button deleteNotes;
+    @BindView(R.id.composeFragment_addSong_button)
+    Button addSong;
+    @BindView(R.id.composeFragment_library_button)
+    Button gotoLibrary;
 
     public static ComposeFragment newInstance() {
         return new ComposeFragment();
@@ -63,6 +62,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        defaultDuration = "1000";
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
     }
 
@@ -73,7 +73,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
             listener = (FragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement FragmentInteractionListener");
+                    + getActivity().getString(R.string.fragment_exception_message));
         }
     }
 
@@ -99,8 +99,6 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
                         "raw",
                         getActivity().getPackageName()
                 );
-
-                Log.d("rawid", String.valueOf(rawId));
                 noteName = parent.getItemAtPosition(position).toString();
             }
 
@@ -130,11 +128,12 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void addNotes() {
-        String durationI = durationInput.getText().toString();
+        String durationI = defaultDuration;
 
-        if (durationI.isEmpty()) {
-            durationI = "1000";
-            Toast.makeText(getActivity(), "no duration entered. default is 1000 ms", Toast.LENGTH_SHORT).show();
+        if (durationInput.getText().toString().isEmpty()) {
+            Toast.makeText(getActivity(), getString(R.string.no_duration_entered_message), Toast.LENGTH_SHORT).show();
+        }else{
+            durationI = durationInput.getText().toString();
         }
         song.addNote(new Note(
                 rawId,
@@ -147,37 +146,35 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
 
     private void addSong() {
         if (songTitle.getText().toString().isEmpty()) {
-            Toast.makeText(getActivity(), "enter a title!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.no_title_entered_message), Toast.LENGTH_SHORT).show();
         } else if (!viewModel.getSong(songTitle.getText().toString()).getSongTitle().equals("")) {
-            Toast.makeText(getActivity(), "title exists! choose a different title", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.title_exists_message), Toast.LENGTH_SHORT).show();
         } else {
-            Log.d("danny",viewModel.getSong(songTitle.getText().toString()).getSongTitle());
             song.setSongTitle(songTitle.getText().toString());
             viewModel.addSong(song);
-            Toast.makeText(getActivity(), "Song Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), getString(R.string.song_added_message), Toast.LENGTH_SHORT).show();
         }
     }
 
-
-    @OnClick({R.id.add_song_button,
-            R.id.deleteNote_button,
-            R.id.compose_to_library_button,
-            R.id.addNote_button}
+    @OnClick({R.id.composeFragment_addSong_button,
+            R.id.composeFragment_deleteNote_button,
+            R.id.composeFragment_library_button,
+            R.id.composeFragment_addNote_button}
     )
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.add_song_button:
+            case R.id.composeFragment_addSong_button:
                 addSong();
                 break;
-            case R.id.addNote_button:
+            case R.id.composeFragment_addNote_button:
                 addNotes();
                 break;
-            case R.id.deleteNote_button:
+            case R.id.composeFragment_deleteNote_button:
                 deleteNotes();
                 break;
-            case R.id.compose_to_library_button:
+            case R.id.composeFragment_library_button:
                 listener.displayLibrary();
                 break;
         }

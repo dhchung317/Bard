@@ -5,45 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <TextView
-        android:id="@+id/main_title_textview"
+        android:id="@+id/mainFragment_header_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/vinque"
-        android:text="BARD"
+        android:text="@string/app_name"
         android:textColor="@color/colorAppHeaders"
         android:textSize="50sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/main_imageView"
+        app:layout_constraintBottom_toTopOf="@+id/mainFragment_imageView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/main_imageView"
+        android:id="@+id/mainFragment_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:contentDescription="@string/mainFragment_image_contentDescription"
         app:layout_constraintBottom_toTopOf="@+id/main_songlist_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_title_textview"
+        app:layout_constraintTop_toBottomOf="@+id/mainFragment_header_textview"
         tools:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/main_compose_button"
+        android:id="@+id/mainFragment_compose_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:background="@drawable/button"
         android:fontFamily="@font/vinque"
-        android:text="compose"
+        android:text="@string/mainFragment_compose_button"
         android:textColor="@color/colorAppButtonText"
         android:textSize="24sp"
         android:textStyle="bold"
@@ -56,19 +56,17 @@
         android:id="@+id/main_songlist_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
-
         android:fontFamily="@font/vinque"
-        android:text="SongList"
+        android:text="@string/mainFragment_library_button"
         android:textColor="@color/colorAppButtonText"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/main_compose_button"
-        app:layout_constraintTop_toBottomOf="@+id/main_imageView" />
+        app:layout_constraintStart_toEndOf="@+id/mainFragment_compose_button"
+        app:layout_constraintTop_toBottomOf="@+id/mainFragment_imageView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

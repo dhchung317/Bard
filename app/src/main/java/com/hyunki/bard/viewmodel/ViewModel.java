@@ -1,10 +1,7 @@
 package com.hyunki.bard.viewmodel;
 
 import android.app.Application;
-import android.content.Context;
-import android.speech.tts.TextToSpeech;
 
-import com.hyunki.bard.SongPlayer;
 import com.hyunki.bard.model.Song;
 import com.hyunki.bard.repository.Repository;
 

@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/playSong_textview"
+        android:id="@+id/songFragment_playSong_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/vinque"
-        android:text="PLAY SONG"
+        android:text="@string/songFragment_header"
         android:textColor="@color/colorAppHeaders"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/songTitle_textView"
+        app:layout_constraintBottom_toTopOf="@+id/songFragment_songTitle_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/songTitle_textView"
+        android:id="@+id/songFragment_songTitle_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="song title"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/notes_title_textview"
+        app:layout_constraintBottom_toTopOf="@+id/songFragment_notesTitle_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playSong_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/songFragment_playSong_textview" />
 
     <Button
         android:background="@drawable/button"
         android:textColor="@color/colorAppButtonText"
-        android:id="@+id/play_button"
+        android:id="@+id/songFragment_play_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -45,65 +43,64 @@
         android:layout_marginBottom="8dp"
 
         android:fontFamily="@font/vinque"
-        android:text="Play"
+        android:text="@string/songFragment_play_button"
 
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/exit_song_button"
-        app:layout_constraintEnd_toStartOf="@+id/delete_button"
+        app:layout_constraintBottom_toTopOf="@+id/songFragment_exit_button"
+        app:layout_constraintEnd_toStartOf="@+id/songFragment_delete_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/all_notes_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/songFragment_displayNotes_textview" />
 
     <TextView
-        android:id="@+id/notes_title_textview"
+        android:id="@+id/songFragment_notesTitle_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/vinque"
-        android:text="Notes"
+        android:text="@string/songFragment_notes_title"
         android:textColor="@color/colorAppHeaders"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/all_notes_textview"
+        app:layout_constraintBottom_toTopOf="@+id/songFragment_displayNotes_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/songTitle_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/songFragment_songTitle_textview" />
 
     <TextView
-        android:id="@+id/all_notes_textview"
+        android:id="@+id/songFragment_displayNotes_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:background="@color/common_google_signin_btn_text_light_disabled"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/play_button"
+        app:layout_constraintBottom_toTopOf="@+id/songFragment_play_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notes_title_textview" />
+        app:layout_constraintTop_toBottomOf="@+id/songFragment_notesTitle_textview" />
 
     <Button
-        android:id="@+id/delete_button"
+        android:id="@+id/songFragment_delete_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/button"
         android:fontFamily="@font/vinque"
-        android:text="Delete"
+        android:text="@string/songFragment_delete_button"
+        android:textColor="@color/colorAppButtonText"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/play_button"
+        app:layout_constraintBaseline_toBaselineOf="@+id/songFragment_play_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/play_button"
-        android:background="@drawable/button"
-        android:textColor="@color/colorAppButtonText"/>
+        app:layout_constraintStart_toEndOf="@+id/songFragment_play_button" />
 
     <ImageView
-        android:id="@+id/playSong_imageview"
+        android:id="@+id/songFragment_imageview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -111,6 +108,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:alpha=".3"
+        android:contentDescription="@string/songFragment_image_contentDescription"
         android:elevation="-1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,7 +117,7 @@
         app:srcCompat="@drawable/play" />
 
     <Button
-        android:id="@+id/exit_song_button"
+        android:id="@+id/songFragment_exit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -128,13 +126,13 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
         android:fontFamily="@font/vinque"
-        android:text="exit"
+        android:text="@string/songFragment_exit_button"
         android:textColor="@color/colorAppButtonText"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/delete_button" />
+        app:layout_constraintTop_toBottomOf="@+id/songFragment_delete_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

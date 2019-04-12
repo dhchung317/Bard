@@ -1,6 +1,5 @@
 package com.hyunki.bard.model;
 
-import android.database.Observable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -20,7 +19,6 @@ public class Song implements Parcelable {
     public Song(String songTitle) {
         this.songTitle = songTitle;
     }
-
 
     protected Song(Parcel in) {
         songNotes = in.createTypedArrayList(Note.CREATOR);
@@ -56,7 +54,6 @@ public class Song implements Parcelable {
         dest.writeTypedList(songNotes);
         dest.writeString(songTitle);
     }
-
 
     public List<Note> getSongNotes() {
         return songNotes;

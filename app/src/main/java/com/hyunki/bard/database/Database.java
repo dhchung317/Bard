@@ -4,7 +4,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
@@ -55,7 +54,9 @@ public class Database extends SQLiteOpenHelper {
             for (Note note : song.getSongNotes()) {
                 getWritableDatabase().execSQL("INSERT INTO " + TABLE_CHILD +
                         "(raw_note, note_syllable, note_duration, note_name, song_name) " +
-                        "VALUES('" + note.getRawNote() + "', '" + note.getSyllable() + "', '" + note.getDuration() + "','" + note.getNote() + "', '" + song.getSongTitle() + "');");
+                        "VALUES('" + note.getRawNote() + "', '" + note.getSyllable() + "', '"
+                        + note.getDuration() + "','" + note.getNote()
+                        + "', '" + song.getSongTitle() + "');");
             }
         }
         cursor.close();
