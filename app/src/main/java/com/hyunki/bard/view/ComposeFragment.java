@@ -67,13 +67,10 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof FragmentInteractionListener) {
+        if (context instanceof FragmentInteractionListener){
             listener = (FragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + getActivity().getString(R.string.fragment_exception_message));
         }
     }
 
@@ -141,7 +138,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
                 Integer.parseInt(durationI),
                 noteName)
         );
-        currentNotes.append(noteName + " ");
+        currentNotes.append(String.format("%s ", noteName));
     }
 
     private void addSong() {

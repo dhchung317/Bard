@@ -35,11 +35,14 @@ public class SongPlayer {
 
     public void playSong(final Song song) {
         playlist = song.getSongNotes();
-        mp = MediaPlayer.create(context, playlist.get(0).getRawNote());
-        if(mp.isPlaying()){
+
+        if(!playlist.isEmpty() && mp.isPlaying()){
             Toast.makeText(context, "media player is playing", Toast.LENGTH_SHORT).show();
-        }else {
+        }else if(playlist.isEmpty()) {
+            Toast.makeText(context,"your song is empty!",Toast.LENGTH_SHORT).show();
+        }else{
             if (playlist.size() >= 1 && i < playlist.size()) {
+                mp = MediaPlayer.create(context, playlist.get(0).getRawNote());
                 playAll(playlist.get(0));
             }
         }
