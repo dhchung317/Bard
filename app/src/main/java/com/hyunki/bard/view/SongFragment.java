@@ -116,9 +116,12 @@ public class SongFragment extends Fragment implements View.OnClickListener {
     }
 
     private void playSong(Song song) {
+
         player.playSong(viewModel.getSong(song.getSongTitle()));
-        while(player.getMp().isPlaying()){
-            playButton.setEnabled(false);
+        if(player.getMp() != null) {
+            while (player.getMp().isPlaying()) {
+                playButton.setEnabled(false);
+            }
         }
         playButton.setEnabled(true);
     }
