@@ -9,7 +9,7 @@ Bard is an app that allows users to create and save a simple melody that might h
 * enter custom note durations
 * enter lyrics or syllables for each note that will use TTS
 * add and delete notes to make a sequence
-* playback and save to library
+* playback by saving to library
 
 ### Features I'd like to implement
 
@@ -17,3 +17,4 @@ Bard is an app that allows users to create and save a simple melody that might h
 * more octaves
 * better way to sing the lyrics than TTS
 * set durations according to time signatures, control speed by bpm
+* functionality to playback song while composing
