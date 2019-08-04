@@ -10,4 +10,16 @@ public class ClickableNote {
         this.rawNote = rawNote;
         this.imgSrc = imgSrc;
     }
+
+    public String getNote() {
+        return note;
+    }
+
+    public int getRawNote() {
+        return rawNote;
+    }
+
+    public String getImgSrc() {
+        return imgSrc;
+    }
 }

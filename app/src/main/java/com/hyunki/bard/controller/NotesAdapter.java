@@ -11,15 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyunki.bard.R;
+import com.hyunki.bard.model.ClickableNote;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
 
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
-    private List<Note> notesList;
+    private List<ClickableNote> notesList;
     private FragmentInteractionListener listener;
-    public NotesAdapter(List<Note> noteList) {
+    public NotesAdapter(List<ClickableNote> noteList) {
         this.notesList = noteList;
     }
     @NonNull
@@ -47,7 +48,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         return notesList.size();
     }
 
-    public void setNotesList(List<Note> notesList) {
+    public void setNotesList(List<ClickableNote> notesList) {
         this.notesList = notesList;
         notifyDataSetChanged();
     }
@@ -62,10 +63,21 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             noteImage = itemView.findViewById(R.id.note_imageView);
         }
 
-        public void onBind(final Note note, final FragmentInteractionListener listener) {
+        public void onBind(final ClickableNote note, final FragmentInteractionListener listener) {
             noteName.setText(note.getNote());
-            noteImage.setImageResource();
-            noteName.setOnClickListener();
+            int resId = itemView.getContext()
+                    .getResources()
+                    .getIdentifier(
+                            "imageNameHere",
+                            "drawable",
+                            itemView.getContext().getPackageName());
+            noteImage.setImageResource(resId);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.setCurrentNote(note.getNote(),note.getRawNote());
+                }
+            });
         }
     }
 }

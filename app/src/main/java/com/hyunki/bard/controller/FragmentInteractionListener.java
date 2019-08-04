@@ -8,4 +8,6 @@ public interface FragmentInteractionListener {
     void displayComposer();
 
     void displayLibrary();
+
+    void setCurrentNote(String note, int rawNote);
 }
