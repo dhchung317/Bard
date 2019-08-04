@@ -9,5 +9,4 @@ public interface FragmentInteractionListener {
 
     void displayLibrary();
 
-    void setCurrentNote(String note, int rawNote);
 }

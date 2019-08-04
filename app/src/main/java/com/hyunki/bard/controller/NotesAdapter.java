@@ -19,7 +19,7 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
     private List<ClickableNote> notesList;
-    private FragmentInteractionListener listener;
+    private ClickableNoteListener listener;
     public NotesAdapter(List<ClickableNote> noteList) {
         this.notesList = noteList;
     }
@@ -30,7 +30,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         View child = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.note_itemview, viewGroup, false);
         Context context = viewGroup.getContext();
         if (context instanceof FragmentInteractionListener) {
-            listener = (FragmentInteractionListener) context;
+            listener = (ClickableNoteListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + context.getString(R.string.fragment_exception_message));
@@ -63,7 +63,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             noteImage = itemView.findViewById(R.id.note_imageView);
         }
 
-        public void onBind(final ClickableNote note, final FragmentInteractionListener listener) {
+        public void onBind(final ClickableNote note, final ClickableNoteListener listener) {
             noteName.setText(note.getNote());
             int resId = itemView.getContext()
                     .getResources()

@@ -19,7 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyunki.bard.R;
+import com.hyunki.bard.controller.ClickableNoteListener;
 import com.hyunki.bard.controller.FragmentInteractionListener;
+import com.hyunki.bard.model.ClickableNote;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
 import com.hyunki.bard.viewmodel.ViewModel;
@@ -29,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ComposeFragment extends Fragment implements View.OnClickListener {
+public class ComposeFragment extends Fragment implements View.OnClickListener,ClickableNoteListener {
     private FragmentInteractionListener listener;
     private ViewModel viewModel;
     private Song song;
@@ -72,6 +74,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
         if (context instanceof FragmentInteractionListener){
             listener = (FragmentInteractionListener) context;
         }
+
     }
 
     @Nullable
@@ -175,5 +178,11 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
                 listener.displayLibrary();
                 break;
         }
+    }
+
+    @Override
+    public void setCurrentNote(String note, int rawNote) {
+        rawId = rawNote;
+        noteName = note;
     }
 }
