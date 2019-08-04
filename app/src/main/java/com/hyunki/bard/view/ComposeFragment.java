@@ -21,12 +21,20 @@ import android.widget.Toast;
 import com.hyunki.bard.R;
 import com.hyunki.bard.controller.ClickableNoteListener;
 import com.hyunki.bard.controller.FragmentInteractionListener;
+import com.hyunki.bard.controller.NotesAdapter;
 import com.hyunki.bard.model.ClickableNote;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
 import com.hyunki.bard.viewmodel.ViewModel;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -38,6 +46,9 @@ public class ComposeFragment extends Fragment implements View.OnClickListener,Cl
     private int rawId;
     private String noteName;
     private String defaultDuration;
+    private NotesAdapter adapter;
+    private ArrayList<ClickableNote> clickableNotes = new ArrayList<>();
+
     @BindView(R.id.composeFragment_songTitle_editText)
     EditText songTitle;
     @BindView(R.id.composeFragment_syllable_editText)
@@ -46,8 +57,10 @@ public class ComposeFragment extends Fragment implements View.OnClickListener,Cl
     EditText durationInput;
     @BindView(R.id.composeFragment_displayCurrentNotes_textView)
     TextView currentNotes;
-    @BindView(R.id.composeFragment_notes_spinner)
-    Spinner notes;
+//    @BindView(R.id.composeFragment_notes_spinner)
+//    Spinner notes;
+    @BindView(R.id.compose_recyclerview)
+    RecyclerView noteRecycler;
     @BindView(R.id.composeFragment_addNote_button)
     Button addNotes;
     @BindView(R.id.composeFragment_deleteNote_button)
@@ -74,7 +87,6 @@ public class ComposeFragment extends Fragment implements View.OnClickListener,Cl
         if (context instanceof FragmentInteractionListener){
             listener = (FragmentInteractionListener) context;
         }
-
     }
 
     @Nullable
@@ -88,27 +100,51 @@ public class ComposeFragment extends Fragment implements View.OnClickListener,Cl
         super.onViewCreated(view, savedInstanceState);
         ButterKnife.bind(this, view);
         song = new Song();
-        ArrayAdapter<CharSequence> adapter =
-                ArrayAdapter.createFromResource(
-                        getActivity(), R.array.spinner_array, R.layout.support_simple_spinner_dropdown_item);
-        notes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rawId = getActivity().getResources().getIdentifier(
-                        parent.getItemAtPosition(position).toString().toLowerCase(),
-                        "raw",
-                        getActivity().getPackageName()
-                );
-                noteName = parent.getItemAtPosition(position).toString();
-            }
+        adapter = new NotesAdapter(clickableNotes);
+        noteRecycler.setAdapter(adapter);
+        noteRecycler.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false));
+        List<String> noteRes = Arrays.asList(getResources().getStringArray(R.array.spinner_array));
+        for (int i = 0; i < noteRes.size(); i++) {
+            clickableNotes.add(new ClickableNote(
+                  noteRes.get(i),
+                    getActivity()
+                            .getResources()
+                            .getIdentifier(
+                                    noteRes.get(i).toLowerCase(),
+                                    "raw",
+                                    getActivity().getPackageName()
+                            ),
+                    getContext()
+                            .getResources()
+                            .getIdentifier(
+                                    "alto_" + noteRes.get(i).toLowerCase(),
+                                    "drawable",
+                                    getContext().getPackageName())
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        notes.setAdapter(adapter);
+            ));
+        }
+        adapter.setNotesList(clickableNotes);
+//        ArrayAdapter<CharSequence> adapter =
+//                ArrayAdapter.createFromResource(
+//                        getActivity(), R.array.spinner_array, R.layout.support_simple_spinner_dropdown_item);
+//        notes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                rawId = getActivity().getResources().getIdentifier(
+//                        parent.getItemAtPosition(position).toString().toLowerCase(),
+//                        "raw",
+//                        getActivity().getPackageName()
+//                );
+//                noteName = parent.getItemAtPosition(position).toString();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//
+//        notes.setAdapter(adapter);
     }
 
     private void deleteNotes() {

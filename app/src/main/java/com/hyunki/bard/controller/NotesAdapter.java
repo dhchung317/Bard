@@ -65,13 +65,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
         public void onBind(final ClickableNote note, final ClickableNoteListener listener) {
             noteName.setText(note.getNote());
-            int resId = itemView.getContext()
-                    .getResources()
-                    .getIdentifier(
-                            "imageNameHere",
-                            "drawable",
-                            itemView.getContext().getPackageName());
-            noteImage.setImageResource(resId);
+            noteImage.setImageResource(note.getImgSrc());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
