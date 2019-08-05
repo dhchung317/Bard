@@ -1,5 +1,7 @@
 package com.hyunki.bard.controller;
 
+import com.hyunki.bard.model.ClickableNote;
+
 public interface ClickableNoteListener {
-    void setCurrentNote(String note, int rawNote);
+    void setCurrentNote(ClickableNote note);
 }

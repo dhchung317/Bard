@@ -39,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ComposeFragment extends Fragment implements View.OnClickListener,ClickableNoteListener {
+public class ComposeFragment extends Fragment implements View.OnClickListener {
     private FragmentInteractionListener listener;
     private ViewModel viewModel;
     private Song song;
@@ -114,7 +114,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener,Cl
                                     "raw",
                                     getActivity().getPackageName()
                             ),
-                    getContext()
+                    getActivity()
                             .getResources()
                             .getIdentifier(
                                     "alto_" + noteRes.get(i).toLowerCase(),
@@ -164,6 +164,10 @@ public class ComposeFragment extends Fragment implements View.OnClickListener,Cl
     }
 
     private void addNotes() {
+        ClickableNote currentNote = viewModel.getCurrentNote();
+        rawId = currentNote.getRawNote();
+        noteName = currentNote.getNote();
+
         String durationI = defaultDuration;
 
         if (durationInput.getText().toString().isEmpty()) {
@@ -216,9 +220,9 @@ public class ComposeFragment extends Fragment implements View.OnClickListener,Cl
         }
     }
 
-    @Override
-    public void setCurrentNote(String note, int rawNote) {
-        rawId = rawNote;
-        noteName = note;
-    }
+//    @Override
+//    public void setCurrentNote(String note, int rawNote) {
+//        rawId = rawNote;
+//        noteName = note;
+//    }
 }

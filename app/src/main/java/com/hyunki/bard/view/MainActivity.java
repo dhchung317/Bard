@@ -10,11 +10,13 @@ import android.widget.ImageView;
 
 import com.hyunki.bard.Animations;
 import com.hyunki.bard.R;
+import com.hyunki.bard.controller.ClickableNoteListener;
+import com.hyunki.bard.model.ClickableNote;
 import com.hyunki.bard.viewmodel.ViewModel;
 import com.hyunki.bard.controller.FragmentInteractionListener;
 import com.hyunki.bard.model.Song;
 
-public class MainActivity extends AppCompatActivity implements FragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements FragmentInteractionListener, ClickableNoteListener {
     private ViewModel viewModel;
     private ImageView splash;
     public static final String SONG_FRAGMENT_KEY = "displaySong";
@@ -69,5 +71,11 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                 .replace(R.id.main_container, LibraryFragment.newInstance())
                 .addToBackStack(LIBRARY_FRAGMENT_KEY)
                 .commit();
+    }
+
+
+    @Override
+    public void setCurrentNote(ClickableNote note) {
+        viewModel.setCurrentNote(note);
     }
 }

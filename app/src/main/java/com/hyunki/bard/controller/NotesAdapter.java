@@ -1,6 +1,7 @@
 package com.hyunki.bard.controller;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.hyunki.bard.R;
 import com.hyunki.bard.model.ClickableNote;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
+import com.hyunki.bard.view.ComposeFragment;
 
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
         View child = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.note_itemview, viewGroup, false);
         Context context = viewGroup.getContext();
-        if (context instanceof FragmentInteractionListener) {
+        if (context instanceof ClickableNoteListener) {
             listener = (ClickableNoteListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -69,7 +71,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    listener.setCurrentNote(note.getNote(),note.getRawNote());
+                    listener.setCurrentNote(note);
+                    MediaPlayer mp = MediaPlayer.create(itemView.getContext(),note.getRawNote());
+                    mp.seekTo(600);
+                    mp.start();
                 }
             });
         }

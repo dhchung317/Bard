@@ -2,6 +2,7 @@ package com.hyunki.bard.viewmodel;
 
 import android.app.Application;
 
+import com.hyunki.bard.model.ClickableNote;
 import com.hyunki.bard.model.Song;
 import com.hyunki.bard.repository.Repository;
 
@@ -12,6 +13,11 @@ import androidx.lifecycle.LiveData;
 
 public class ViewModel extends AndroidViewModel {
     private Repository repository;
+
+    public ClickableNote getCurrentNote(){
+       return currentNote;
+    }
+    private ClickableNote currentNote;
 
     public LiveData<List<Song>> getAllSongs() {
         return allSongs;
@@ -30,4 +36,7 @@ public class ViewModel extends AndroidViewModel {
     }
     public Song getSong(String songTitle) { return repository.getSong(songTitle);}
     public void  deleteSong(Song song) { repository.deleteSong(song);}
+    public void setCurrentNote(ClickableNote note){
+        currentNote = note;
+    }
 }
