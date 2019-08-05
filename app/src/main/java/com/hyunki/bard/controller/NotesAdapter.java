@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyunki.bard.R;
@@ -16,6 +17,7 @@ import com.hyunki.bard.model.ClickableNote;
 import com.hyunki.bard.model.Note;
 import com.hyunki.bard.model.Song;
 import com.hyunki.bard.view.ComposeFragment;
+import com.hyunki.bard.viewmodel.ViewModel;
 
 import java.util.List;
 
@@ -37,6 +39,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             throw new RuntimeException(context.toString()
                     + context.getString(R.string.fragment_exception_message));
         }
+
         return new NotesViewHolder(child);
     }
 

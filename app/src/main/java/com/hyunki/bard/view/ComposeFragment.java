@@ -7,19 +7,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyunki.bard.R;
-import com.hyunki.bard.controller.ClickableNoteListener;
 import com.hyunki.bard.controller.FragmentInteractionListener;
 import com.hyunki.bard.controller.NotesAdapter;
 import com.hyunki.bard.model.ClickableNote;
@@ -78,7 +75,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         defaultDuration = "1000";
-        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel = ViewModelProviders.of(this.getActivity()).get(ViewModel.class);
     }
 
     @Override
@@ -165,6 +162,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
 
     private void addNotes() {
         ClickableNote currentNote = viewModel.getCurrentNote();
+        Log.d("danny", viewModel.getCurrentNote().toString());
         rawId = currentNote.getRawNote();
         noteName = currentNote.getNote();
 
