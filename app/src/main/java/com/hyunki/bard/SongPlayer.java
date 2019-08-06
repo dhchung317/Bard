@@ -31,6 +31,7 @@ public class SongPlayer {
         this.tts = tts;
         tts.setSpeechRate((float) .3);
         timer = new Timer();
+        mp = new MediaPlayer();
     }
 
     public void playSong(final Song song) {

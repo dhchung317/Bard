@@ -8,4 +8,5 @@ public interface FragmentInteractionListener {
     void displayComposer();
 
     void displayLibrary();
+
 }
