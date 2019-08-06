@@ -41,10 +41,6 @@
     <string name="songFragment_exit_button">exit</string>
 
     <string-array name="spinner_array">
-        <item>Aflat3</item>
-        <item>A3</item>
-        <item>Bflat3</item>
-        <item>B3</item>
         <item>C3</item>
         <item>Dflat3</item>
         <item>D3</item>
@@ -53,6 +49,10 @@
         <item>F3</item>
         <item>Gflat3</item>
         <item>G3</item>
+        <item>Aflat3</item>
+        <item>A3</item>
+        <item>Bflat3</item>
+        <item>B3</item>
     </string-array>
 
 </resources>
