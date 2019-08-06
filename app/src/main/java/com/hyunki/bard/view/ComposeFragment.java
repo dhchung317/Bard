@@ -76,6 +76,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         defaultDuration = "1000";
         viewModel = ViewModelProviders.of(this.getActivity()).get(ViewModel.class);
+
     }
 
     @Override
@@ -120,6 +121,7 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
 
             ));
         }
+        viewModel.setCurrentNote(clickableNotes.get(0));
         adapter.setNotesList(clickableNotes);
 //        ArrayAdapter<CharSequence> adapter =
 //                ArrayAdapter.createFromResource(
