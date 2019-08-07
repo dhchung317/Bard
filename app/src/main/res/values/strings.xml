@@ -8,6 +8,7 @@
     <string name="mainFragment_image_contentDescription">MainFragment logo image</string>
 
     <string name="fragment_exception_message">must implement FragmentInteractionListener</string>
+    <string name="clickable_listener_exception_message">must implement ClickableNoteListener</string>
     <string name="no_duration_entered_message">no duration entered. default is 1000 ms</string>
     <string name="no_title_entered_message">enter a title!</string>
     <string name="title_exists_message">title exists! choose a different title</string>
