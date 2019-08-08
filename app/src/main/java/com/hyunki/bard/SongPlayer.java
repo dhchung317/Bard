@@ -120,7 +120,6 @@ public class SongPlayer {
                 return (float) 1;
         }
     }
-
     public MediaPlayer getMp() {
         return mp;
     }

@@ -123,27 +123,6 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
         }
         viewModel.setCurrentNote(clickableNotes.get(0));
         adapter.setNotesList(clickableNotes);
-//        ArrayAdapter<CharSequence> adapter =
-//                ArrayAdapter.createFromResource(
-//                        getActivity(), R.array.spinner_array, R.layout.support_simple_spinner_dropdown_item);
-//        notes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                rawId = getActivity().getResources().getIdentifier(
-//                        parent.getItemAtPosition(position).toString().toLowerCase(),
-//                        "raw",
-//                        getActivity().getPackageName()
-//                );
-//                noteName = parent.getItemAtPosition(position).toString();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) {
-//
-//            }
-//        });
-//
-//        notes.setAdapter(adapter);
     }
 
     private void deleteNotes() {
@@ -220,9 +199,9 @@ public class ComposeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-//    @Override
-//    public void setCurrentNote(String note, int rawNote) {
-//        rawId = rawNote;
-//        noteName = note;
-//    }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        clickableNotes.clear();
+    }
 }
